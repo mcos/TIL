@@ -12,4 +12,32 @@ This is a record of things I learned that I want to remember. Organized mainly a
   git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(authorname) %(refname:short)'
 #+END_SRC
 Note: by changing the ~--sort~ flag, you can order things differently.
+
+* Makefile
+** Silence command printing
+<2017-03-16 Thu>
+
+If we have the following:
+#+BEGIN_SRC makefile
+  target:
+	  echo "running target"
+#+END_SRC
+
+It'll print out the command, and the output of the command:
+#+BEGIN_SRC
+$ make target
+echo "running target"
+running target
+#+END_SRC
+
+To silence this, place ~@~ immediately preceding the the command
+#+BEGIN_SRC makefile
+  target:
+	  @echo "running target"
+#+END_SRC
+Invoking this:
+#+BEGIN_SRC
+$ make target
+running target
+#+END_SRC
 #+END_SRC
