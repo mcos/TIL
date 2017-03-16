@@ -40,4 +40,28 @@ Invoking this:
 $ make target
 running target
 #+END_SRC
+
+** Call a Makefile target within another Makefile target
+<2017-03-16 Thu>
+
+#+BEGIN_SRC makefile
+  other-target:
+	  @echo "other target"
+
+  target:
+	  @$(MAKE) other-target
+#+END_SRC
+Calling ~make target~ will invoke ~other-target~.
+
+This is useful in the case where there are a list of prerequisites, but one prerequisite is dependent on the artifacts created by another prerequisite.
+#+BEGIN_SRC makefile
+  target: a b c
+#+END_SRC
+
+If, above, ~c~ depends on a directory created by ~a~, ~c~ won't run. We can do the following instead:
+#+BEGIN_SRC makefile
+  target:
+	  @$(MAKE) a
+	  @$(MAKE) b
+	  @$(MAKE) c
 #+END_SRC
