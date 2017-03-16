@@ -13,6 +13,30 @@ This is a record of things I learned that I want to remember. Organized mainly a
 #+END_SRC
 Note: by changing the ~--sort~ flag, you can order things differently.
 
+** Rebasing: The meaning of "theirs" vs "ours"
+<2017-03-16 Thu>
+
+When *merging* (~git merge~), the ~ours~ branch refers to the branch being merged into, and ~theirs~ refers to the branch being merged.
+#+BEGIN_SRC sh
+  git checkout feature-branch
+  git merge master
+#+END_SRC
+In the above, ~ours~ is ~feature-branch~ and ~theirs~ is ~master~.
+
+When *rebasing*, this semantic is essentially swapped, as the work on hold is being replayed onto the main history.
+
+#+BEGIN_SRC sh
+  git checkout feature-branch
+  git rebase master
+#+END_SRC
+
+In the above, ~ours~ is ~master~ and ~theirs~ is ~feature-branch~.
+
+So, if we wanted to resolve conflicts up front, we can use the ~-Xours~ or ~-Xtheirs~ to resolve the conflicts up front.
+
+~git rebase -Xours master~: This resolves the conflicts in favor of selecting the changes in the master branch (the canonical work from the main history).
+~git rebase -Xtheirs master~: This resolves the conflicts in favor of selecting the changes in the ~feature-branch~ branch (the work on hold).
+
 * Makefile
 ** Silence command printing
 <2017-03-16 Thu>
