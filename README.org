@@ -1,0 +1,15 @@
+#    -*- mode: org -*-
+#+FILETAGS: TIL
+#+TITLE: Today I Learned
+#+AUTHOR: Mark Costello
+
+This is a record of things I learned that I want to remember. Organized mainly around various subject matter headings.
+
+* Git
+** Show a list of local branches sorted by last commmit date
+<2017-03-16 Thu>
+#+BEGIN_SRC sh
+  git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(authorname) %(refname:short)'
+#+END_SRC
+Note: by changing the ~--sort~ flag, you can order things differently.
+#+END_SRC
