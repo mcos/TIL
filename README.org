@@ -37,6 +37,43 @@ So, if we wanted to resolve conflicts up front, we can use the ~-Xours~ or ~-Xth
 ~git rebase -Xours master~: This resolves the conflicts in favor of selecting the changes in the master branch (the canonical work from the main history).
 ~git rebase -Xtheirs master~: This resolves the conflicts in favor of selecting the changes in the ~feature-branch~ branch (the work on hold).
 
+* Go
+** Get the reflect.Type of a type without instantiating it
+<2017-03-16 Thu>
+
+In many cases, getting the ~reflect.Type~ of a type requires calling ~reflect.TypeOf~ with an instantiated variable.
+
+#+BEGIN_SRC go
+  import "reflect"
+
+  type reflectableType struct{}
+
+  // Get the reflect.Type of the pointer to the type
+  t1 := reflect.TypeOf(&reflectableType{})
+
+  // Get the reflect.Type of the element
+  t2 := t1.Elem()
+#+END_SRC
+
+Though slightly contrived, what if we don't want to instantiate the type to be reflected?
+
+#+BEGIN_SRC go
+  import "reflect"
+
+  type reflectableType struct{}
+
+  // Get the reflect.Type of the pointer to the type
+  t1 := reflect.TypeOf((*reflectableType)(nil))
+
+  // Get the reflect.Type of the element
+  t2 := t1.Elem()
+#+END_SRC
+
+In both cases above:
+
+- ~t1~ is the ~reflect.Type~ of ~*reflectableType~
+- ~t2~ is the ~reflect.Type~ of ~reflectableType~
+
 * Makefile
 ** Silence command printing
 <2017-03-16 Thu>
