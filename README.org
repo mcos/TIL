@@ -5,6 +5,16 @@
 
 This is a record of things I learned that I want to remember. Organized mainly around various subject matter headings.
 
+* Emacs
+** Evil Mode Substitution - Confirm Flag
+<2017-03-17 Fri>
+
+Adding ~c~ to the end of an ~evil-mode~ substitution flag will invoke a "confirm" workflow that allows choosing which substitutions should be performed
+
+#+BEGIN_SRC
+  :s/foo/bar/gc
+#+END_SRC
+
 * Git
 ** Show a list of local branches sorted by last commmit date
 <2017-03-16 Thu>
