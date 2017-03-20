@@ -99,6 +99,14 @@ Github's API rate limits calls to 5000 per/hour. Using a ~time.Ticker~ can allow
   github.ListIssues()
 #+END_SRC
 
+** Deleting an installed package
+<2017-03-20 Mon>
+
+~go clean -i importpath...~ will remove all archive files and executable binaries for a package.
+
+for example: ~go clean -i github.com/foo/bar...~ removes all artifacts for the ~github.com/foo/bar~ package.
+
+*Note:* Include the ~...~ on the importpath. If a package includes an executable ~go clean -i~ will only remove that and not archive files for subpackages.
 
 * Makefile
 ** Silence command printing
