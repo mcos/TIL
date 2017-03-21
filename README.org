@@ -108,6 +108,16 @@ for example: ~go clean -i github.com/foo/bar...~ removes all artifacts for the ~
 
 *Note:* Include the ~...~ on the importpath. If a package includes an executable ~go clean -i~ will only remove that and not archive files for subpackages.
 
+** Rounding a Float point number
+<2017-03-20 Mon>
+
+Go's standard library doesn't have a rounding function. Thankfully this is fairly straightforward to put together:
+#+BEGIN_SRC go
+  func Round(f float64) float64 {
+      return math.Floor(f + .5)
+  }
+#+END_SRC
+
 * Makefile
 ** Silence command printing
 <2017-03-16 Thu>
