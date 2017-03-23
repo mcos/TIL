@@ -5,6 +5,48 @@
 
 This is a record of things I learned that I want to remember. Organized mainly around various subject matter headings.
 
+* Clojure
+** Composing functions (using a contrived "fizzbuzz" example)
+<2017-03-22 Wed>
+
+I used the popular "fizzbuzz" program to learn how to compose functions a bit better.
+
+**Attempt 1:**
+This uses ~cond~ to check some conditionals. Could it be better? You bet.
+#+BEGIN_SRC clojure
+  (defn do-fizz-buzz [x] (cond (and (zero? (mod x 5)) (zero? (mod x 3))) "fizzbuzz" (zero? (mod x 3)) "fizz" (zero? (mod x 5)) "buzz"  :else x))
+#+END_SRC
+
+**Attempt 2:**
+This uses ~condp~ with a predicate function that applies the argument ~x~ and the predicate to check the remainder using ~zero?~ and ~mod~.
+#+BEGIN_SRC clojure
+  (defn do-fizz-buzz [x] (condp (fn [a b] (zero? (mod b a))) x 15 "fizzbuzz" 3 "fizz" 5 "buzz" x))
+#+END_SRC
+
+**Attempt 3:**
+This breaks out the predicate function, above into its own function.
+#+BEGIN_SRC clojure
+  (defn is-divisible [a b] (zero? (mod b a)))
+
+  (defn do-fizz-buzz [x] (condp is-divisible x 15 "fizzbuzz" 3 "fizz" 5 "buzz" x))
+#+END_SRC
+
+**Attempt 4:**
+Let's revisit **Attempt 1** with ~cond~ and some composed functions, from above. (Note: the arguments application in the ~is-divisible~ function are reversed to conform to the ~mod~ function, since the previous example was a little opaque)
+#+BEGIN_SRC clojure
+  (defn is-divisible [a b] (zero? (mod a b)))
+  (defn is-divisible-3 [x] (is-divisible x 3))
+  (defn is-divisible-5 [x] (is-divisible x 5))
+  (defn is-divisible-15 [x] (is-divisible x 15))
+  ;; or we could compose this one from the two others, above.
+  (defn is-divisible-15 [x] (and (is-divisible-5 x)) (is-divisible x 15))
+
+  (defn do-fizz-buzz [x] (cond (is-divisible-15 x) "fizzbuzz" (is-divisible-3 x) "fizz" (is-divisible-5 x) "buzz" :else x))
+
+#+END_SRC
+
+These examples are all contrived, but it serves to at least show a little how composition works.
+
 * Emacs
 ** Evil Mode Substitution - Confirm Flag
 <2017-03-17 Fri>
